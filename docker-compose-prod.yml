@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+  web:
+    image: web-app:latest
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:10.8.2
+    environment:
+      MYSQL_ROOT_PASSWORD: pass_encrypted
+      MYSQL_DATABASE: ambiente-prod
+      MYSQL_USER: ambiente-prod
+      MYSQL_PASSWORD: pass_encrypted
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
